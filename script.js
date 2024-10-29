@@ -1,5 +1,5 @@
 // Fetch the JSON data and populate the table
-fetch('data.json')
+fetch('motors_complete.json')
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
