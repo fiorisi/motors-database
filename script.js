@@ -14,8 +14,8 @@ function filterMotors() {
     const maxDiameter = parseFloat(document.getElementById("diameter-max").value);
 
     const filteredMotors = motorData.filter(motor => {
-        return (!minDiameter || motor.outer_diameter >= minDiameter) &&
-               (!maxDiameter || motor.outer_diameter <= maxDiameter);
+        return (!minDiameter || motor.diameter_mm >= minDiameter) &&
+               (!maxDiameter || motor.diameter_mm <= maxDiameter);
     });
 
     displayResults(filteredMotors);
