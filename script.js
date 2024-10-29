@@ -1,8 +1,12 @@
 // Fetch the JSON data and populate the table
-fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
-        const motors = data;
+fetch('motors.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(motors => {
         generateFilters(motors);
         populateTable(motors);
     })
@@ -37,78 +41,96 @@ function populateTable(motors) {
 function generateFilters(motors) {
     const filtersDiv = document.getElementById('filters');
 
-    // Example: Create a filter for Cooling
-    const coolingTypes = [...new Set(motors.map(motor => motor.cooling).filter(Boolean))];
+    // Define the parameters you want to create filters for
+    const filterParams = [
+        { key: 'cooling', label: 'Cooling' },
+        { key: 'rated_voltage_v', label: 'Rated Voltage (V)' },
+        { key: 'continuous_torque_nm', label: 'Continuous Torque (Nm)' },
+        { key: 'peak_torque_nm', label: 'Peak Torque (Nm)' },
+        { key: 'max_rotation_speed_rpm', label: 'Max Rotation Speed (rpm)' },
+        { key: 'pole_pairs', label: 'Pole Pairs' },
+        { key: 'rotor_inertia_kg_cm2', label: 'Rotor Inertia (kg·cm²)' },
+        { key: 'diameter_mm', label: 'Diameter (mm)' },
+        { key: 'length_mm', label: 'Length (mm)' },
+        { key: 'weight_g', label: 'Weight (g)' },
+        { key: 'rotor_inner_diameter_mm', label: 'Rotor Inner Diameter (mm)' }
+    ];
 
-    const coolingLabel = document.createElement('label');
-    coolingLabel.textContent = 'Cooling: ';
-    const coolingSelect = document.createElement('select');
-    coolingSelect.id = 'cooling-filter';
+    filterParams.forEach(param => {
+        createFilter(motors, param.key, param.label);
+    });
+}
+
+function createFilter(motors, key, labelText) {
+    const filtersDiv = document.getElementById('filters');
+
+    const values = [...new Set(motors.map(motor => motor[key]).filter(value => value !== null && value !== undefined))];
+
+    // Sort values if they are numbers
+    if (typeof values[0] === 'number') {
+        values.sort((a, b) => a - b);
+    } else {
+        values.sort();
+    }
+
+    const label = document.createElement('label');
+    label.textContent = `${labelText}: `;
+    label.style.marginRight = '10px';
+
+    const select = document.createElement('select');
+    select.id = `${key}-filter`;
 
     const allOption = document.createElement('option');
     allOption.value = '';
     allOption.textContent = 'All';
-    coolingSelect.appendChild(allOption);
+    select.appendChild(allOption);
 
-    coolingTypes.forEach(cooling => {
+    values.forEach(value => {
         const option = document.createElement('option');
-        option.value = cooling;
-        option.textContent = cooling;
-        coolingSelect.appendChild(option);
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
     });
 
-    coolingSelect.addEventListener('change', () => {
+    select.addEventListener('change', () => {
         applyFilters(motors);
     });
 
-    coolingLabel.appendChild(coolingSelect);
-    filtersDiv.appendChild(coolingLabel);
-
-    // Example: Filter for Diameter
-    const diameters = [...new Set(motors.map(motor => motor.diameter_mm).filter(Boolean))].sort((a, b) => a - b);
-
-    const diameterLabel = document.createElement('label');
-    diameterLabel.textContent = 'Diameter: ';
-    const diameterSelect = document.createElement('select');
-    diameterSelect.id = 'diameter-filter';
-
-    const allDiameterOption = document.createElement('option');
-    allDiameterOption.value = '';
-    allDiameterOption.textContent = 'All';
-    diameterSelect.appendChild(allDiameterOption);
-
-    diameters.forEach(diameter => {
-        const option = document.createElement('option');
-        option.value = diameter;
-        option.textContent = diameter;
-        diameterSelect.appendChild(option);
-    });
-
-    diameterSelect.addEventListener('change', () => {
-        applyFilters(motors);
-    });
-
-    diameterLabel.appendChild(diameterSelect);
-    filtersDiv.appendChild(diameterLabel);
-
-    // You can add more filters in a similar fashion
+    label.appendChild(select);
+    filtersDiv.appendChild(label);
 }
 
 function applyFilters(motors) {
-    const coolingFilter = document.getElementById('cooling-filter').value;
-    const diameterFilter = document.getElementById('diameter-filter').value;
+    const filterParams = [
+        'cooling',
+        'rated_voltage_v',
+        'continuous_torque_nm',
+        'peak_torque_nm',
+        'max_rotation_speed_rpm',
+        'pole_pairs',
+        'rotor_inertia_kg_cm2',
+        'diameter_mm',
+        'length_mm',
+        'weight_g',
+        'rotor_inner_diameter_mm'
+    ];
 
     let filteredMotors = motors;
 
-    if (coolingFilter) {
-        filteredMotors = filteredMotors.filter(motor => motor.cooling === coolingFilter);
-    }
+    filterParams.forEach(param => {
+        const filterValue = document.getElementById(`${param}-filter`).value;
 
-    if (diameterFilter) {
-        filteredMotors = filteredMotors.filter(motor => motor.diameter_mm == diameterFilter);
-    }
-
-    // Add more filter conditions as needed
+        if (filterValue) {
+            filteredMotors = filteredMotors.filter(motor => {
+                // Handle numerical and string comparison
+                if (typeof motor[param] === 'number') {
+                    return motor[param] == filterValue;
+                } else {
+                    return motor[param] === filterValue;
+                }
+            });
+        }
+    });
 
     populateTable(filteredMotors);
 }
