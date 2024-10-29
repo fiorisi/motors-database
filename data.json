@@ -1,0 +1,62 @@
+[
+    {
+        "name": "K032050-7Y_",
+        "cooling": "Air",
+        "rated_voltage_v": 24,
+        "continuous_torque_nm": 0.072,
+        "peak_torque_nm": 0.26,
+        "max_power_w": 59,
+        "max_rotation_speed_rpm": 10000,
+        "pole_pairs": 2,
+        "rotor_inertia_kg_cm2": 0.0032,
+        "diameter_mm": 32,
+        "length_mm": 50,
+        "weight_g": null,
+        "rotor_inner_diameter_mm": null
+    },
+    {
+        "name": "K032050-8Y_",
+        "cooling": "Air",
+        "rated_voltage_v": 24,
+        "continuous_torque_nm": 0.074,
+        "peak_torque_nm": 0.26,
+        "max_power_w": 42,
+        "max_rotation_speed_rpm": 8155,
+        "pole_pairs": 2,
+        "rotor_inertia_kg_cm2": 0.0032,
+        "diameter_mm": 32,
+        "length_mm": 50,
+        "weight_g": null,
+        "rotor_inner_diameter_mm": null
+    },
+    {
+        "name": "TK.270-200-Water",
+        "cooling": "Water",
+        "rated_voltage_v": null,
+        "continuous_torque_nm": 547.70,
+        "peak_torque_nm": 1131.00,
+        "max_power_w": null,
+        "max_rotation_speed_rpm": 8000,
+        "pole_pairs": null,
+        "rotor_inertia_kg_cm2": null,
+        "diameter_mm": 282,
+        "length_mm": 290,
+        "weight_g": null,
+        "rotor_inner_diameter_mm": 160
+    },
+    {
+        "name": "TK.270-200-Air",
+        "cooling": "Air",
+        "rated_voltage_v": null,
+        "continuous_torque_nm": 273.90,
+        "peak_torque_nm": 1131.00,
+        "max_power_w": null,
+        "max_rotation_speed_rpm": 8000,
+        "pole_pairs": null,
+        "rotor_inertia_kg_cm2": null,
+        "diameter_mm": 282,
+        "length_mm": 290,
+        "weight_g": null,
+        "rotor_inner_diameter_mm": 160
+    }
+]
