@@ -1,22 +1,31 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
 }
 
 #filters {
     margin-bottom: 20px;
 }
 
-table {
+#filters label {
+    margin-right: 10px;
+}
+
+#motor-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
+#motor-table th, #motor-table td {
     border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
 }
 
-th {
-    background-color: #f4f4f4;
+#motor-table th {
+    background-color: #f2f2f2;
 }

@@ -1,44 +1,114 @@
-let motorData = [];
-
-// Fetch data from the JSON file
-fetch("motors.json")
+// Fetch the JSON data and populate the table
+fetch('data.json')
     .then(response => response.json())
     .then(data => {
-        motorData = data.motors;
+        const motors = data;
+        generateFilters(motors);
+        populateTable(motors);
     })
-    .catch(error => console.error("Error loading data:", error));
+    .catch(error => console.error('Error fetching data:', error));
 
-// Filter motors based on user input
-function filterMotors() {
-    const minDiameter = parseFloat(document.getElementById("diameter-min").value);
-    const maxDiameter = parseFloat(document.getElementById("diameter-max").value);
-
-    const filteredMotors = motorData.filter(motor => {
-        return (!minDiameter || motor.outer_diameter >= minDiameter) &&
-               (!maxDiameter || motor.outer_diameter <= maxDiameter);
-    });
-
-    displayResults(filteredMotors);
-}
-
-// Display results in the table
-function displayResults(motors) {
-    const resultsBody = document.getElementById("results-body");
-    resultsBody.innerHTML = "";
+function populateTable(motors) {
+    const tbody = document.querySelector('#motor-table tbody');
+    tbody.innerHTML = '';
 
     motors.forEach(motor => {
-        const row = document.createElement("tr");
+        const row = document.createElement('tr');
+
         row.innerHTML = `
-            <td>${motor.model}</td>
-            <td>${motor.series}</td>
-            <td>${motor.outer_diameter}</td>
-            <td>${motor.length}</td>
-            <td>${motor.voltage}</td>
-            <td>${motor.continuous_torque_nm}</td>
-            <td>${motor.rated_speed_rpm}</td>
-            <td>${motor.rated_power_kw}</td>
-            <td>${motor.weight_kg}</td>
+            <td>${motor.name || ''}</td>
+            <td>${motor.cooling || ''}</td>
+            <td>${motor.rated_voltage_v || ''}</td>
+            <td>${motor.continuous_torque_nm || ''}</td>
+            <td>${motor.peak_torque_nm || ''}</td>
+            <td>${motor.max_rotation_speed_rpm || ''}</td>
+            <td>${motor.pole_pairs || ''}</td>
+            <td>${motor.rotor_inertia_kg_cm2 || ''}</td>
+            <td>${motor.diameter_mm || ''}</td>
+            <td>${motor.length_mm || ''}</td>
+            <td>${motor.weight_g || ''}</td>
+            <td>${motor.rotor_inner_diameter_mm || ''}</td>
         `;
-        resultsBody.appendChild(row);
+
+        tbody.appendChild(row);
     });
+}
+
+function generateFilters(motors) {
+    const filtersDiv = document.getElementById('filters');
+
+    // Example: Create a filter for Cooling
+    const coolingTypes = [...new Set(motors.map(motor => motor.cooling).filter(Boolean))];
+
+    const coolingLabel = document.createElement('label');
+    coolingLabel.textContent = 'Cooling: ';
+    const coolingSelect = document.createElement('select');
+    coolingSelect.id = 'cooling-filter';
+
+    const allOption = document.createElement('option');
+    allOption.value = '';
+    allOption.textContent = 'All';
+    coolingSelect.appendChild(allOption);
+
+    coolingTypes.forEach(cooling => {
+        const option = document.createElement('option');
+        option.value = cooling;
+        option.textContent = cooling;
+        coolingSelect.appendChild(option);
+    });
+
+    coolingSelect.addEventListener('change', () => {
+        applyFilters(motors);
+    });
+
+    coolingLabel.appendChild(coolingSelect);
+    filtersDiv.appendChild(coolingLabel);
+
+    // Example: Filter for Diameter
+    const diameters = [...new Set(motors.map(motor => motor.diameter_mm).filter(Boolean))].sort((a, b) => a - b);
+
+    const diameterLabel = document.createElement('label');
+    diameterLabel.textContent = 'Diameter: ';
+    const diameterSelect = document.createElement('select');
+    diameterSelect.id = 'diameter-filter';
+
+    const allDiameterOption = document.createElement('option');
+    allDiameterOption.value = '';
+    allDiameterOption.textContent = 'All';
+    diameterSelect.appendChild(allDiameterOption);
+
+    diameters.forEach(diameter => {
+        const option = document.createElement('option');
+        option.value = diameter;
+        option.textContent = diameter;
+        diameterSelect.appendChild(option);
+    });
+
+    diameterSelect.addEventListener('change', () => {
+        applyFilters(motors);
+    });
+
+    diameterLabel.appendChild(diameterSelect);
+    filtersDiv.appendChild(diameterLabel);
+
+    // You can add more filters in a similar fashion
+}
+
+function applyFilters(motors) {
+    const coolingFilter = document.getElementById('cooling-filter').value;
+    const diameterFilter = document.getElementById('diameter-filter').value;
+
+    let filteredMotors = motors;
+
+    if (coolingFilter) {
+        filteredMotors = filteredMotors.filter(motor => motor.cooling === coolingFilter);
+    }
+
+    if (diameterFilter) {
+        filteredMotors = filteredMotors.filter(motor => motor.diameter_mm == diameterFilter);
+    }
+
+    // Add more filter conditions as needed
+
+    populateTable(filteredMotors);
 }
