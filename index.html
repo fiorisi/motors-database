@@ -9,40 +9,28 @@
 <body>
     <h1>Motor Comparison Tool</h1>
     <div id="filters">
-        <label for="diameter-min">Min Diameter (mm):</label>
+        <label for="diameter-min">Min Diameter:</label>
         <input type="number" id="diameter-min">
-        
-        <label for="diameter-max">Max Diameter (mm):</label>
+        <label for="diameter-max">Max Diameter:</label>
         <input type="number" id="diameter-max">
-
-        <label for="torque-min">Min Continuous Torque (Nm):</label>
-        <input type="number" id="torque-min">
-
-        <label for="torque-max">Max Continuous Torque (Nm):</label>
-        <input type="number" id="torque-max">
-
         <button onclick="filterMotors()">Filter</button>
     </div>
     <table id="results-table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Cooling</th>
-                <th>Rated Voltage (V)</th>
-                <th>Continuous Torque (Nm)</th>
-                <th>Peak Torque (Nm)</th>
-                <th>Max Power (W)</th>
-                <th>Max Speed (RPM)</th>
-                <th>Pole Pairs</th>
-                <th>Rotor Inertia (kg·cm²)</th>
+                <th>Model</th>
+                <th>Series</th>
                 <th>Diameter (mm)</th>
                 <th>Length (mm)</th>
-                <th>Weight (g)</th>
-                <th>Rotor Inner Diameter (mm)</th>
+                <th>Voltage</th>
+                <th>Torque (Nm)</th>
+                <th>Speed (rpm)</th>
+                <th>Power (kW)</th>
+                <th>Weight (kg)</th>
             </tr>
         </thead>
         <tbody id="results-body">
-            <!-- Filtered results will appear here -->
+            <!-- Results will be inserted here -->
         </tbody>
     </table>
     <script src="script.js"></script>

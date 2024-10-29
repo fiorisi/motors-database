@@ -2,37 +2,21 @@ body {
     font-family: Arial, sans-serif;
 }
 
-h1 {
-    text-align: center;
-}
-
 #filters {
-    text-align: center;
     margin-bottom: 20px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: auto;
 }
 
 th, td {
     padding: 8px;
-    text-align: center;
+    text-align: left;
     border: 1px solid #ddd;
 }
 
 th {
     background-color: #f4f4f4;
-}
-
-button {
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #ddd;
 }
