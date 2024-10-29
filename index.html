@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Motor Comparison Table</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Comparison Tool</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Motor Comparison Table</h1>
-
+    <h1>Motor Comparison Tool</h1>
     <div id="filters">
-        <!-- Filters will be generated dynamically -->
+        <label for="diameter-min">Min Diameter (mm):</label>
+        <input type="number" id="diameter-min">
+        <label for="diameter-max">Max Diameter (mm):</label>
+        <input type="number" id="diameter-max">
+        <button onclick="filterMotors()">Filter</button>
     </div>
-
-    <table id="motor-table">
+    <table id="results-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -20,7 +23,8 @@
                 <th>Rated Voltage (V)</th>
                 <th>Continuous Torque (Nm)</th>
                 <th>Peak Torque (Nm)</th>
-                <th>Max Rotation Speed (rpm)</th>
+                <th>Max Power (W)</th>
+                <th>Max Speed (RPM)</th>
                 <th>Pole Pairs</th>
                 <th>Rotor Inertia (kg·cm²)</th>
                 <th>Diameter (mm)</th>
@@ -29,11 +33,10 @@
                 <th>Rotor Inner Diameter (mm)</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- Motor data will be inserted here -->
+        <tbody id="results-body">
+            <!-- Filtered results will appear here -->
         </tbody>
     </table>
-
     <script src="script.js"></script>
 </body>
 </html>

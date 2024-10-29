@@ -1,6 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
 }
 
 h1 {
@@ -8,24 +7,32 @@ h1 {
 }
 
 #filters {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-#filters label {
-    margin-right: 10px;
-}
-
-#motor-table {
+table {
     width: 100%;
     border-collapse: collapse;
+    margin: auto;
 }
 
-#motor-table th, #motor-table td {
-    border: 1px solid #ddd;
+th, td {
     padding: 8px;
     text-align: center;
+    border: 1px solid #ddd;
 }
 
-#motor-table th {
-    background-color: #f2f2f2;
+th {
+    background-color: #f4f4f4;
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ddd;
 }
