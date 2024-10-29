@@ -11,8 +11,16 @@
     <div id="filters">
         <label for="diameter-min">Min Diameter (mm):</label>
         <input type="number" id="diameter-min">
+        
         <label for="diameter-max">Max Diameter (mm):</label>
         <input type="number" id="diameter-max">
+
+        <label for="torque-min">Min Continuous Torque (Nm):</label>
+        <input type="number" id="torque-min">
+
+        <label for="torque-max">Max Continuous Torque (Nm):</label>
+        <input type="number" id="torque-max">
+
         <button onclick="filterMotors()">Filter</button>
     </div>
     <table id="results-table">

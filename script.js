@@ -8,14 +8,18 @@ fetch("motors.json")
     })
     .catch(error => console.error("Error loading data:", error));
 
-// Filter motors based on user input
+// Filter motors based on user input for diameter and continuous torque
 function filterMotors() {
     const minDiameter = parseFloat(document.getElementById("diameter-min").value);
     const maxDiameter = parseFloat(document.getElementById("diameter-max").value);
+    const minTorque = parseFloat(document.getElementById("torque-min").value);
+    const maxTorque = parseFloat(document.getElementById("torque-max").value);
 
     const filteredMotors = motorData.filter(motor => {
         return (!minDiameter || motor.diameter_mm >= minDiameter) &&
-               (!maxDiameter || motor.diameter_mm <= maxDiameter);
+               (!maxDiameter || motor.diameter_mm <= maxDiameter) &&
+               (!minTorque || motor.continuous_torque_nm >= minTorque) &&
+               (!maxTorque || motor.continuous_torque_nm <= maxTorque);
     });
 
     displayResults(filteredMotors);
