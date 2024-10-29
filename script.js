@@ -22,16 +22,16 @@ function populateTable(motors) {
         row.innerHTML = `
             <td>${motor.name || ''}</td>
             <td>${motor.cooling || ''}</td>
-            <td>${motor.rated_voltage_v || ''}</td>
-            <td>${motor.continuous_torque_nm || ''}</td>
-            <td>${motor.peak_torque_nm || ''}</td>
-            <td>${motor.max_rotation_speed_rpm || ''}</td>
-            <td>${motor.pole_pairs || ''}</td>
-            <td>${motor.rotor_inertia_kg_cm2 || ''}</td>
-            <td>${motor.diameter_mm || ''}</td>
-            <td>${motor.length_mm || ''}</td>
-            <td>${motor.weight_g || ''}</td>
-            <td>${motor.rotor_inner_diameter_mm || ''}</td>
+            <td>${motor.rated_voltage_v !== null ? motor.rated_voltage_v : ''}</td>
+            <td>${motor.continuous_torque_nm !== null ? motor.continuous_torque_nm : ''}</td>
+            <td>${motor.peak_torque_nm !== null ? motor.peak_torque_nm : ''}</td>
+            <td>${motor.max_rotation_speed_rpm !== null ? motor.max_rotation_speed_rpm : ''}</td>
+            <td>${motor.pole_pairs !== null ? motor.pole_pairs : ''}</td>
+            <td>${motor.rotor_inertia_kg_cm2 !== null ? motor.rotor_inertia_kg_cm2 : ''}</td>
+            <td>${motor.diameter_mm !== null ? motor.diameter_mm : ''}</td>
+            <td>${motor.length_mm !== null ? motor.length_mm : ''}</td>
+            <td>${motor.weight_g !== null ? motor.weight_g : ''}</td>
+            <td>${motor.rotor_inner_diameter_mm !== null ? motor.rotor_inner_diameter_mm : ''}</td>
         `;
 
         tbody.appendChild(row);
@@ -40,6 +40,7 @@ function populateTable(motors) {
 
 function generateFilters(motors) {
     const filtersDiv = document.getElementById('filters');
+    filtersDiv.innerHTML = ''; // Clear any existing filters
 
     // Define the parameters you want to create filters for
     const filterParams = [
@@ -66,6 +67,9 @@ function createFilter(motors, key, labelText) {
 
     const values = [...new Set(motors.map(motor => motor[key]).filter(value => value !== null && value !== undefined))];
 
+    // Skip creating the filter if there are no valid values
+    if (values.length === 0) return;
+
     // Sort values if they are numbers
     if (typeof values[0] === 'number') {
         values.sort((a, b) => a - b);
@@ -75,7 +79,6 @@ function createFilter(motors, key, labelText) {
 
     const label = document.createElement('label');
     label.textContent = `${labelText}: `;
-    label.style.marginRight = '10px';
 
     const select = document.createElement('select');
     select.id = `${key}-filter`;
@@ -120,13 +123,18 @@ function applyFilters(motors) {
     filterParams.forEach(param => {
         const filterValue = document.getElementById(`${param}-filter`).value;
 
-        if (filterValue) {
+        if (filterValue !== '') {
             filteredMotors = filteredMotors.filter(motor => {
-                // Handle numerical and string comparison
-                if (typeof motor[param] === 'number') {
-                    return motor[param] == filterValue;
+                const motorValue = motor[param];
+
+                if (motorValue === null || motorValue === undefined) {
+                    return false;
+                }
+
+                if (typeof motorValue === 'number') {
+                    return motorValue.toString() === filterValue;
                 } else {
-                    return motor[param] === filterValue;
+                    return motorValue === filterValue;
                 }
             });
         }
