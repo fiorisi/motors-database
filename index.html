@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Comparison Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Motor Comparison Tool</h1>
+    <div id="filters">
+        <label for="diameter-min">Min Diameter:</label>
+        <input type="number" id="diameter-min">
+        <label for="diameter-max">Max Diameter:</label>
+        <input type="number" id="diameter-max">
+        <button onclick="filterMotors()">Filter</button>
+    </div>
+    <table id="results-table">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Series</th>
+                <th>Diameter (mm)</th>
+                <th>Length (mm)</th>
+                <th>Voltage</th>
+                <th>Torque (Nm)</th>
+                <th>Speed (rpm)</th>
+                <th>Power (kW)</th>
+                <th>Weight (kg)</th>
+            </tr>
+        </thead>
+        <tbody id="results-body">
+            <!-- Results will be inserted here -->
+        </tbody>
+    </table>
+    <script src="script.js"></script>
+</body>
+</html>

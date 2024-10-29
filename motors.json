@@ -1,0 +1,9 @@
+{
+    "motors": [
+        {"model": "KBM(S)-10X01-X", "series": "KBM", "outer_diameter": 59.96, "length": 26.2, "voltage": 230, "continuous_torque_nm": 0.487, "peak_torque_nm": 1.17, "rated_speed_rpm": 18000, "max_speed_rpm": 21000, "rated_power_kw": 0.55, "weight_kg": 0.379},
+        {"model": "KBM(S)-10X02-X", "series": "KBM", "outer_diameter": 74.9, "length": 35.8, "voltage": 230, "continuous_torque_nm": 1.22, "peak_torque_nm": 3.28, "rated_speed_rpm": 15000, "max_speed_rpm": 18000, "rated_power_kw": 1.23, "weight_kg": 0.658},
+        {"model": "QTR-78-17", "series": "QTR", "outer_diameter": 78, "length": 17, "voltage": 48, "continuous_torque_nm": 2.1, "peak_torque_nm": 6.3, "rated_speed_rpm": 5000, "max_speed_rpm": 6000, "rated_power_kw": 1.1, "weight_kg": 0.65},
+        {"model": "KBM(S)-14", "series": "KBM", "outer_diameter": 74.96, "length": 40.1, "voltage": 230, "continuous_torque_nm": 2.92, "peak_torque_nm": 4.91, "rated_speed_rpm": 12000, "max_speed_rpm": 15000, "rated_power_kw": 1.0, "weight_kg": 0.77},
+        {"model": "ILM-115x25", "series": "ILM", "outer_diameter": 115, "length": 25, "voltage": 400, "continuous_torque_nm": 9.51, "peak_torque_nm": 31.4, "rated_speed_rpm": 2400, "max_speed_rpm": 2400, "rated_power_kw": 2.2, "weight_kg": 3.3}
+    ]
+}
